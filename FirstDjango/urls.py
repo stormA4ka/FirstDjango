@@ -5,8 +5,8 @@ from MainApp import views
 
 
 urlpatterns = [
-    path('', views.home),
+    path('', views.index),
     path('about/', views.about),
     path('items/', views.items),
-    path('item/<int:id>', views.items_details),
+    path('item/<int:id>', views.item_details),
 ]

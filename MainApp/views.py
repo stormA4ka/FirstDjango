@@ -1,10 +1,11 @@
+from django.http import Http404
 from django.shortcuts import render
 from django.shortcuts import HttpResponse
 
 ITEMS = (
-    {'id': 1, 'name': 'Фитолакс №40'},
-    {'id': 2, 'name': 'Орвис №10 таб'},
-    {'id': 3, 'name': 'Товар 3'},
+    {'id': 1, 'name': 'Фитолакс №40', 'quantity': 5},
+    {'id': 2, 'name': 'Орвис №10 таб', 'quantity': 15},
+    {'id': 3, 'name': 'Товар 3', 'quantity': 0},
 )
 
 
@@ -29,20 +30,26 @@ def about(request):
 
     return HttpResponse(text)
 
-def items_details(request, id):
-    for item in ITEMS:
-        if item['id'] == id:
-            return HttpResponse(f"""{item['name']}</br>""")
-
+def index(request):
+    context = {
+    'first_name': 'Александр',
+    'second_name':'Дергилёв'
+    }
+    return render(request, "index.html", context)
 
 def items(request):
-    items_str = "<ul>"
-    # <ul>
-    #     <li>Товар-1</li>
-    #     <li>Товар-1</li>
-    #     <li>Товар-1</li>
-    # </ul>
+    context = {"items": ITEMS}
+    return render(request, "items_list.html", context)
+
+
+def item_details(request, id):
     for item in ITEMS:
-        items_str += f"<li><a href='/item/{item['id']}'>{item['name']}</a></li>"
-    items_str += "</ul>"
-    return HttpResponse(items_str)
+        if item['id'] == id:
+            context = {
+                "item": item
+
+            }
+            return render(request, "item_page.html", context)
+    raise Http404
+
+
