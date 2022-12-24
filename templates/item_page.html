@@ -6,12 +6,11 @@
 </head>
 <body>
 
-<h>Товар {{ item.name }}</h>>
+<h1>Товар {{ item.name }}</h1>>
 <div>
-    Количество товара: {{ item.quantity }}
+    Количество: {{ item.quantity | default:"Товар отсутствует"}}
 </div>
 <a href="/items/"> Список товаров </a>>
-
 
 </body>
 </html>

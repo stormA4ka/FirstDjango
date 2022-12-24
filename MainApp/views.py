@@ -1,12 +1,16 @@
 from django.http import Http404
 from django.shortcuts import render
 from django.shortcuts import HttpResponse
+from django.contrib.auth import models
+from MainApp.models import Item
+from django.core.exceptions import ObjectDoesNotExist
 
-ITEMS = (
-    {'id': 1, 'name': 'Фитолакс №40', 'quantity': 5},
-    {'id': 2, 'name': 'Орвис №10 таб', 'quantity': 15},
-    {'id': 3, 'name': 'Товар 3', 'quantity': 0},
-)
+
+# ITEMS = (
+#     {'id': 1, 'name': 'Фитолакс №40', 'quantity': 5},
+#     {'id': 2, 'name': 'Орвис №10 таб', 'quantity': 15},
+#     {'id': 3, 'name': 'Товар 3', 'quantity': 0},
+# )
 
 
 def home(request):
@@ -32,24 +36,25 @@ def about(request):
 
 def index(request):
     context = {
-    'first_name': 'Александр',
-    'second_name':'Дергилёв'
+        'first_name': 'Александр',
+        'second_name': 'Дергилёв'
     }
-    return render(request, "index.html", context)
+    return render(request, "index.html")
+
 
 def items(request):
-    context = {"items": ITEMS}
+    items = Item.objects.all()
+    context = {"items": items}
     return render(request, "items_list.html", context)
 
 
 def item_details(request, id):
-    for item in ITEMS:
-        if item['id'] == id:
-            context = {
-                "item": item
+    try:
+        item = Item.objects.get(pk=id)
+    except ObjectDoesNotExist:
+        raise Http404
+    context = {
+        "item": item
 
-            }
-            return render(request, "item_page.html", context)
-    raise Http404
-
-
+    }
+    return render(request, "item_page.html", context)
