@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1> Приветствую на главной странице </h1>
-автор страницы: {{ first_name }} {{ second_name }}
+{% extends 'base.html' %}
+{% block content %}
+{{ block.super }}
 
-</body>
-</html>
+    <h1> Приветствуем на главной странице !</h1>
+    <a href="{% url 'items-list' %}" > Список товаров </a>
+
+
+
+    {% include 'inc/inc-footer.html' %}
+
+
+{% endblock %}

@@ -7,8 +7,8 @@ from MainApp import views
 
 
 urlpatterns = [
-    path('', views.index),
-    path('about/', views.about),
-    path('items/', views.items),
-    path('item/<int:id>', views.item_details),
+    path('', views.index, name="home"),
+    path('about/', views.about, name="about"),
+    path('items/', views.items, name="items-list"),
+    path('item-page/<int:id>', views.item_details, name="item-page"),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

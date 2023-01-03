@@ -13,7 +13,7 @@
 <div>
     Количество: {{ item.quantity | default:"Товар отсутствует"}}
 </div>
-<a href="/items/"> Список товаров </a>
+<a href="{% url 'items-list' %}"> Список товаров </a>
 
 </body>
 </html>
