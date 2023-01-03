@@ -1,2 +1,5 @@
 # Project exclude paths
-/django_venv/
+db.*
+*.pyc
+.idea/
+*venv/
